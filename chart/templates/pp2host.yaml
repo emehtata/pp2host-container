@@ -5,6 +5,7 @@ metadata:
   labels:
     app: pp2host
   {{- include "chart.labels" . | nindent 4 }}
+  namespace: pp2host
 spec:
   type: {{ .Values.pp2Host.type }}
   selector:

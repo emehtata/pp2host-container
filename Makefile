@@ -1,5 +1,5 @@
 NAME=pp2host
-IMAGE=localhost:5000/pp2host:latest
+IMAGE ?= localhost:5000/pp2host:latest
 
 build:
 	docker build . -t $(IMAGE)

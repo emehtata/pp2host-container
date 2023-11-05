@@ -4,6 +4,7 @@ metadata:
   name: {{ include "chart.fullname" . }}-pp2host
   labels:
   {{- include "chart.labels" . | nindent 4 }}
+  namespace: pp2host
 spec:
   replicas: {{ .Values.pp2Host.replicas }}
   selector:
@@ -37,5 +38,5 @@ spec:
           name: pp2host-config
       volumes:
       - hostPath:
-          path: /opt/pp2/pp2host
+          path: /opt/pp2host-container/pp2host
         name: pp2host-config

@@ -1,5 +1,7 @@
 # Pro Pilkki 2 host in container
 
+This is very early release and may not work out of the box.
+
 ## Options
 
 ### Docker
@@ -15,6 +17,10 @@ Start container that listens on host port 4500
 Build image and tag (See Makefile for tag):
 
     make build
+
+Build with own image tag:
+
+    make IMAGE=mypp2host build
 
 Stop container:
     
@@ -32,6 +38,10 @@ Push to repository (See Makefile for tag):
 
     make push
 
+Push with your tag:
+
+    make IMAGE=mypp2host push
+
 ### Kubernetes
 
 Create namespace
@@ -42,11 +52,11 @@ Create namespace
 
 See mount options in pp2host.yaml first and modify for your needs.
 
-    kubectl apply -f pp2host.yaml
+    kubectl apply -f pp2host.yaml -n pp2host
 
 Uninstall
     
-    kubectl delete -f pp2host.yaml
+    kubectl delete -f pp2host.yaml -n pp2host
 
 #### Deploy with helm
 
@@ -56,4 +66,4 @@ See mount options in chart/templates/deployment.yaml and modify for your needs.
 
 Uninstall
 
-    helm uninstall pp2host
+    helm uninstall pp2host -n pp2host
