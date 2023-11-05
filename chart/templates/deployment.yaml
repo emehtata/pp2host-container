@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "chart.fullname" . }}-pp2host
+  labels:
+  {{- include "chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.pp2Host.replicas }}
+  selector:
+    matchLabels:
+      app: pp2host
+    {{- include "chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: pp2host
+      {{- include "chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.pp2Host.pp2Host.image.repository }}:{{ .Values.pp2Host.pp2Host.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.pp2Host.pp2Host.imagePullPolicy }}
+        name: pp2host
+        ports:
+        - containerPort: 4500
+          name: pp2-udp1
+          protocol: UDP
+        - containerPort: 4500
+          name: pp2-tcp1
+          protocol: TCP
+        resources: {}
+        volumeMounts:
+        - mountPath: /etc/pp2host
+          name: pp2host-config
+      volumes:
+      - hostPath:
+          path: /opt/pp2/pp2host
+        name: pp2host-config
