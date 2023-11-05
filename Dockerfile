@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install pp2host && apt-get clean
 
 RUN adduser propilkki
 
+COPY entrypoint.sh /
+
 EXPOSE 4500 4501
 
-ENTRYPOINT [ "/etc/pp2host/entrypoint.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
