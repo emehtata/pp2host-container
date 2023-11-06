@@ -38,5 +38,5 @@ spec:
           name: pp2host-config
       volumes:
       - hostPath:
-          path: /opt/pp2host-container/pp2host
+          path: {{ .Values.hostPath }} # /opt/pp2host-container/pp2host
         name: pp2host-config
