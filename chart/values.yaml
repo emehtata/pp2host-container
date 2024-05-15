@@ -17,4 +17,5 @@ pp2Host:
   replicas: 1
   type: LoadBalancer
 
-hostPath: /opt/pp2host-container/pp2host
+hostPath: /opt/pp2host/pp2host
+

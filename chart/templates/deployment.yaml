@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "chart.fullname" . }}-pp2host
+  name: {{ include "chart.fullname" . }}-deployment
   labels:
   {{- include "chart.labels" . | nindent 4 }}
   namespace: pp2host
@@ -36,7 +36,20 @@ spec:
         volumeMounts:
         - mountPath: /etc/pp2host
           name: pp2host-config
+        - name: zoneinfo
+          mountPath: /etc/timezone
+          readOnly: true
+        - name: localtime
+          mountPath: /etc/localtime
+          readOnly: true
       volumes:
       - hostPath:
           path: {{ .Values.hostPath }} # /opt/pp2host-container/pp2host
         name: pp2host-config
+      - hostPath:
+          path: /etc/timezone
+        name: zoneinfo
+      - hostPath:
+          path: /etc/localtime
+        name: localtime
+
